@@ -1,9 +1,9 @@
 package org.example.repository
 
-interface CrudRepository<ID,T> {
+interface CrudRepository<MATRICULA,T> {
     fun save (entity:T):T
-    fun delete(id: ID):T?
-    fun update(id: ID, entity: T): T?
+    fun delete(matricula: MATRICULA):T?
+    fun update(matricula: MATRICULA, entity: T): T?
     fun getAll(): List<T>
-    fun getById(id: ID, entity: T): T?
+    fun getById(matricula: MATRICULA, entity: T): T?
 }
