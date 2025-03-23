@@ -17,6 +17,8 @@ dependencies {
     implementation("io.insert-koi-core:4.0.2")
     implementation("io.insert-koin:koin-annotations:2.0.0")
 
+    // Resuly: ROP
+    implementation("com.michael-bull.kotlin-result:kotlin-result:2.0.1")
 
     //base de datos
     implementation("com.h2database:h2:2.3.232")
