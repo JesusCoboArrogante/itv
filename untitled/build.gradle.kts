@@ -10,6 +10,14 @@ repositories {
 }
 
 dependencies {
+    //Cache Caffeine
+    implementation("com.github.ben-manes.caffeine:caffeine:3.2.0")
+
+    // koin
+    implementation("io.insert-koi-core:4.0.2")
+    implementation("io.insert-koin:koin-annotations:2.0.0")
+
+
     //base de datos
     implementation("com.h2database:h2:2.3.232")
 
@@ -38,3 +46,4 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
+
