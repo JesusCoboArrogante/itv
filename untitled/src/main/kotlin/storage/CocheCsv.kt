@@ -7,7 +7,8 @@ import org.example.models.Motor
 import java.io.File
 
 class CocheCsv:CocheStorage {
-    override fun fileRead(file: File): List<Coche> {
+    val file = File("data", "coche.csv")
+    override fun fileRead(): List<Coche> {
         return  file.readLines()
             .drop(1)
             .map { it.split(",") }
