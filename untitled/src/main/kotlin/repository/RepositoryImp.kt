@@ -1,35 +1,51 @@
 package org.example.repository
 
+import org.example.dao.CocheDao
+import org.example.mapper.toEntity
+import org.example.mapper.toModel
 import org.example.models.Coche
 import sun.util.logging.resources.logging
 
-class RepositoryImp:CrudRepository<String, Coche> {
+typealias CocheEntity =Map<String,Any>
+class RepositoryImp(
+    private val dao:CocheDao
+):CrudRepository<String, Coche> {
     private val  logger = logging()
-    private val garaje = mutableMapOf<String, Coche>()
+
 
 
 
     override fun save(entity: Coche): Coche {
-        garaje[entity.matricula] = entity
+        dao.save(entity.toEntity())
         return entity
 
     }
 
     override fun delete(matricula:String): Coche? {
-        return  garaje.remove(matricula)
+        val coche: Coche? = getById(matricula)
+        if (coche != null){
+            dao.delete(matricula)
+        }
+        return coche
     }
 
     override fun update(matricula: String, entity: Coche): Coche? {
-        garaje[matricula]?: return null
-        return garaje[matricula]
+        var coche : Coche? = this.getById(matricula)
+        if (coche != null){
+            val result = dao.update(entity.toEntity())
+            if (result > 0){
+                coche = entity
+            }
+        }
+        return coche
     }
 
     override fun getAll(): List<Coche> {
-        return garaje.values.toList()
+        return dao.findAll().map{it.toModel()}
     }
 
-    override fun getById(matricula: String, entity:Coche): Coche? {
-        return garaje[matricula]
+    override fun getById(matricula: String): Coche? {
+        return dao.findById(matricula)?.toModel()
     }
 
 

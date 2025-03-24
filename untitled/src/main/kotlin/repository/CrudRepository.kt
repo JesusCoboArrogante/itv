@@ -5,5 +5,5 @@ interface CrudRepository<MATRICULA,T> {
     fun delete(matricula: MATRICULA):T?
     fun update(matricula: MATRICULA, entity: T): T?
     fun getAll(): List<T>
-    fun getById(matricula: MATRICULA, entity: T): T?
+    fun getById(matricula: MATRICULA): T?
 }

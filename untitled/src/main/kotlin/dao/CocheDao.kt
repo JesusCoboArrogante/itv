@@ -11,6 +11,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 @RegisterKotlinMapper(CocheEntity::class)
 interface CocheDao {
 
+
     @SqlQuery ("SELECT * FROM Coche")
     fun findAll(): List<CocheEntity>
 
