@@ -35,7 +35,7 @@ dependencies {
     implementation("org.jdbi:jdbi3-kotlin-sqlobject:3.48.0")
 
     //libreria de json
-    implementation("org.jetbrains.kotlin:kotlinx-serialization-json:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
     //libreria log
     implementation("ch.qos.logback-classic:1.5.12")

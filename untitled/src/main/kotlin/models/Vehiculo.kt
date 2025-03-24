@@ -10,7 +10,5 @@ abstract class Vehiculo(
 
 ){
 
-    enum class Motor {
-        ELECTRICO,COMBUSTION,HIBRIDO
-    }
+
 }
