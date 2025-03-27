@@ -14,7 +14,7 @@ import org.koin.core.annotation.Singleton
 @Singleton
 class CocheServiceImpl(
     private val cache: Cache<String,Coche>,
-    private val validador: Validator<String,Coche>,
+    private val validador: Validator<Coche, CocheError>,
     private val repository: RepositoryImp
 ):CocheService {
     override fun findAll(): List<Coche> {

@@ -1,54 +1,43 @@
 package org.example.configuracion
 
+
+import sun.util.logging.resources.logging
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 import kotlin.io.path.pathString
 
-class Configuration {
+
     object Configuration {
 
-        val configurationProperties: ConfigurationProperties = loadConfig()
+        var dataBaseUrl: String = "jdbi:h2:mam:coche"
+            private set
+        var databaseInitTables: Boolean = false
+            private set
+        var databaseInitData:Boolean = false
+            private set
+        var storageData: String = "data"
+            private set
 
-        private fun loadConfig(): ConfigurationProperties {
+        var locale: String = Locale.getDefault().language
 
+        init {
+            try{
+                val properties = Properties()
+                properties.load(ClassLoader.getSystemResourceAsStream("config.properties"))
+                dataBaseUrl = properties.getProperty("database.url", this.dataBaseUrl)
+                databaseInitTables =
+                    properties.getProperty("database.init.tables", this.databaseInitTables.toString()).toBoolean()
+                databaseInitData =
+                    properties.getProperty("database.init.data", this.databaseInitData.toString()).toBoolean()
+                storageData = properties.getProperty("storage.data", this.storageData)
+                locale = properties.getProperty("locale", this.locale)
 
-            val propiedades = Properties()
+            }catch (e:Exception){
+                println("Error cargando configuracion: ${e.message}")
+                println("usando valores por defecto")
 
-            val cadenaPropiedades = this::class.java.getResourceAsStream("/config.properties")
-                ?: throw RuntimeException("No se ha encontrado el fichero de configuración")
-
-            propiedades.load(cadenaPropiedades)
-
-
-            val directorioActual = System.getProperty("user.dir")
-
-            var directorioDataProperties: String? = propiedades.getProperty("data.directory")
-            if (directorioDataProperties.isNullOrEmpty()) {
-                directorioDataProperties = "data"
-            }
-
-            var directorioBackupProperties: String? = propiedades.getProperty("backup.directory")
-            if (directorioBackupProperties.isNullOrEmpty()) {
-                directorioBackupProperties = "backup"
-            }
-
-
-            val directorioData = Path.of(directorioActual, directorioDataProperties).pathString
-            val directorioBackup = Path.of(directorioActual, directorioBackupProperties).pathString
-
-            crearDirectorios(directorioData, directorioBackup)
-
-            return ConfigurationProperties(directorioData, directorioBackup)
-
-
-        }
-
-        private fun crearDirectorios(vararg directorios: String) {
-            directorios.forEach {
-                val dir = java.io.File(it)
-                Files.createDirectories(dir.toPath())
             }
         }
-    }
+
 }

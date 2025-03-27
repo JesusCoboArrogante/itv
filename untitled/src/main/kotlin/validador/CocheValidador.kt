@@ -8,8 +8,7 @@ import org.example.models.Coche
 import java.time.LocalDate
 
 class CocheValidador: Validator<Coche, CocheError> {
-    val letra = 'M'
-    val matriculaRegex = Regex("^[0-9]{4} [BCDFGHJKLMNPRSTVWXYZ]{3}$")
+    val matriculaRegex = Regex("^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$")
 
     override fun validate(it: Coche): Result<Coche, CocheError> {
         if (it.matricula.isBlank()) {
@@ -18,9 +17,7 @@ class CocheValidador: Validator<Coche, CocheError> {
         if (!matriculaRegex.matches(it.matricula)) {
             return Err(CocheError.validationError("la matricula ${it.matricula} no es correcta"))
         }
-        if (it.matricula[4] > letra) {
-            return Err(CocheError.validationError("McFly regresa al futuro o pon la matricula bien"))
-        }
+
         if (it.fechaMatriculacion > LocalDate.now()){
             return Err(CocheError.validationError("McFly regresa al futuro o pon la matricula bien"))
         }

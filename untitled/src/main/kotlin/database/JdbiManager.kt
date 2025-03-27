@@ -1,28 +1,33 @@
 package org.example.database
 
-import org.h2.tools.Script
+
+import org.example.configuracion.Configuration
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.koin.core.annotation.Property
 import org.koin.core.annotation.Singleton
-import java.io.File
-import javax.sound.midi.SoundbankResource
 
-class JdbiManager(
-    private val databaseUrl: String,
-    private val databaseInitData:Boolean,
-    private val databaseInitTables: Boolean
-) {
-    val jdbi by lazy { Jdbi.create(databaseUrl)}
+import java.io.File
+
+class JdbiManager() {
+
+    companion object{
+        val instance: Jdbi by lazy {
+            JdbiManager().jdbi
+        }
+    }
+
+    private val jdbi = Jdbi.create(Configuration.databaseInitData)
+
     init {
         jdbi.installPlugin(KotlinPlugin())
         jdbi.installPlugin(SqlObjectPlugin())
 
-        if (databaseInitTables){
+        if (Config.databaseInitTables){
             executeSqlScriptFromResources("tables.sql")
         }
-        if (databaseInitData){
+        if (Config.databaseInitData){
             executeSqlScriptFromResources("data.sql")
         }
     }
@@ -40,6 +45,8 @@ class JdbiManager(
         jdbi.useHandle<Exception> {handle -> handle.createScript(script).execute()
         }
     }
+
+
 
 }
 
