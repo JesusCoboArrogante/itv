@@ -9,9 +9,7 @@ import org.example.error.CocheError
 import org.example.models.Coche
 import org.example.repository.RepositoryImp
 import org.example.validador.Validator
-import org.koin.core.annotation.Singleton
 
-@Singleton
 class CocheServiceImpl(
     private val cache: Cache<String,Coche>,
     private val validador: Validator<Coche, CocheError>,

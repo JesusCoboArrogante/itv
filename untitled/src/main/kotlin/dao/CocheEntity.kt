@@ -1,6 +1,7 @@
 package org.example.dao
 
-import org.example.models.Vehiculo.Motor
+import org.example.models.Motor
+
 import java.time.LocalDate
 
 data class CocheEntity(

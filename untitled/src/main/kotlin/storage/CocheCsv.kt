@@ -7,15 +7,15 @@ import org.example.models.Motor
 import java.io.File
 
 class CocheCsv:CocheStorage {
-    val file = File("data", "coche.csv")
-    override fun fileRead(): List<Coche> {
+
+    override fun fileRead(file: File): List<Coche> {
         return  file.readLines()
             .drop(1)
             .map { it.split(",") }
             .map { CocheDto(
                 matricula = it[0],
                 marca = it[1],
-                motor = it[9],
+                motor = it[2],
                 fechaMatriculacion = it[3]
             ).toModel()
             }

@@ -7,7 +7,7 @@ import org.example.models.Coche
 import java.io.File
 
 class CocheJson:CocheStorage {
-    override fun fileRead(): List<Coche> {
+    override fun fileRead(file: File): List<Coche> {
         TODO("Not yet implemented")
     }
 
@@ -15,7 +15,7 @@ class CocheJson:CocheStorage {
         val newFile = File("data", "newCoche.json")
         val json = Json { ignoreUnknownKeys = true; prettyPrint = true }
         val jsonWriter = Json{prettyPrint = true}
-        val CocheDto = newCoche.map{it.toDto}
+        //val CocheDto = newCoche.map{it.toDto}
     }
 
 

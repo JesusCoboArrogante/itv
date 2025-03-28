@@ -13,8 +13,7 @@ import org.example.service.CocheServiceImpl
 import org.example.validador.CocheValidador
 import org.example.validador.Validator
 import org.jdbi.v3.core.Jdbi
-import org.koin.core.annotation.Property
-import org.koin.core.annotation.Singleton
+
 import java.util.concurrent.TimeUnit
 
 object Dependecies{
@@ -29,13 +28,10 @@ object Dependecies{
     }
 
 
-    @Singleton
-    fun provideCocheCache(
-        @Property("cache.capacity")_capacity: String = "10",
-        @Property("cache.duration") _duration: String = "300"
-    ): Cache<String, Coche> {
-        val capacity = _capacity.toLong()
-        val duracion = _duration.toLong()
+
+    fun provideCocheCache(s: String, s1: String): Cache<String, Coche> {
+        val capacity = s.toLong()
+        val duracion = s1.toLong()
         return Caffeine.newBuilder()
             .maximumSize(capacity)
             .expireAfterWrite(duracion, TimeUnit.SECONDS)

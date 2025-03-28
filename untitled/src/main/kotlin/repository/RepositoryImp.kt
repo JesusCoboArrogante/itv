@@ -10,10 +10,6 @@ typealias CocheEntity =Map<String,Any>
 class RepositoryImp(
     private val dao:CocheDao
 ):CrudRepository<String, Coche> {
-    private val  logger = logging()
-
-
-
 
     override fun save(entity: Coche): Coche {
         dao.save(entity.toEntity())

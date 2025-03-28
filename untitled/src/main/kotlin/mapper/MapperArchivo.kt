@@ -10,7 +10,7 @@ import java.time.LocalDate
       return  Coche(
             matricula = matricula,
             marca = marca,
-            motor = Motor.valueOf(motor!!),
+            motor = Motor.valueOf(motor),
             fechaMatriculacion = LocalDate.parse(fechaMatriculacion)
         )
     }
@@ -24,4 +24,3 @@ import java.time.LocalDate
         )
     }
 
-}
