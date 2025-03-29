@@ -1,5 +1,10 @@
 package org.example
 
+import org.example.storage.CocheCsv
+import java.io.File
+
 fun main() {
-    println("Hello World!")
+    val cocheCsv = CocheCsv().fileRead(File("data", "coches.csv"))
+    cocheCsv.forEach { println(it) }
+
 }
